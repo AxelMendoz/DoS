@@ -15,7 +15,7 @@ async function cargarUsuarios() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            ${user.id} - ${user.name}
+            <span class="user-name">${user.name}</span>
             <div>
                 <button class="edit" onclick="editarUsuario(${user.id}, '${user.name}')">Editar</button>
                 <button class="delete" onclick="eliminarUsuario(${user.id})">Eliminar</button>
@@ -48,12 +48,21 @@ form.addEventListener("submit", async (e) => {
 
     form.reset();
     userIdInput.value = "";
+    // leave editing mode after save
+    form.classList.remove('editing');
+    const editNotice = document.getElementById('editNotice');
+    if (editNotice) editNotice.style.display = 'none';
     cargarUsuarios();
 });
 
 function editarUsuario(id, name) {
     userIdInput.value = id;
     nameInput.value = name;
+    // indicate editing state in the form
+    form.classList.add('editing');
+    const editNotice = document.getElementById('editNotice');
+    if (editNotice) editNotice.style.display = 'inline-block';
+    nameInput.focus();
 }
 
 async function eliminarUsuario(id) {
