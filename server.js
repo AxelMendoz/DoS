@@ -2,9 +2,12 @@ const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
 
 
 const app = express();
+app.use(cors());
+app.use(express.static("public"));
 const PORT = 3000;
 
 
