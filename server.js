@@ -38,6 +38,54 @@ app.get("/usuarios", (req, res) => {
     });
 });
 
+app.get("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.get("SELECT * FROM users WHERE id = ?", [id], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (!row) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.json(row);
+    });
+});
+
+app.put("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    // Validación básica de Backend (útil para tu glosario de Auditoría)
+    if (!name) {
+        return res.status(400).json({ error: "El nombre es obligatorio" });
+    }
+
+    db.run("UPDATE users SET name = ? WHERE id = ?", [name, id], function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.json({ message: "Usuario actualizado correctamente" });
+    });
+});
+
+app.delete("/usuarios/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.run("DELETE FROM users WHERE id = ?", id, function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        res.json({ message: "Usuario eliminado correctamente" });
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
