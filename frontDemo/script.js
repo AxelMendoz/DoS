@@ -48,7 +48,6 @@ form.addEventListener("submit", async (e) => {
 
     form.reset();
     userIdInput.value = "";
-    // leave editing mode after save
     form.classList.remove('editing');
     const editNotice = document.getElementById('editNotice');
     if (editNotice) editNotice.style.display = 'none';
@@ -58,7 +57,6 @@ form.addEventListener("submit", async (e) => {
 function editarUsuario(id, name) {
     userIdInput.value = id;
     nameInput.value = name;
-    // indicate editing state in the form
     form.classList.add('editing');
     const editNotice = document.getElementById('editNotice');
     if (editNotice) editNotice.style.display = 'inline-block';
@@ -69,7 +67,6 @@ async function eliminarUsuario(id) {
     await fetch(`${API_URL}/usuarios/${id}`, {
         method: "DELETE"
     });
-
     cargarUsuarios();
 }
 

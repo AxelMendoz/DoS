@@ -11,7 +11,6 @@ app.use(express.static("public"));
 const PORT = 3000;
 
 
-
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 
@@ -59,7 +58,6 @@ app.put("/usuarios/:id", (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
 
-    // Validación básica de Backend (útil para tu glosario de Auditoría)
     if (!name) {
         return res.status(400).json({ error: "El nombre es obligatorio" });
     }
@@ -89,6 +87,6 @@ app.delete("/usuarios/:id", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo y ESCUCHANDO EN RED en el puerto ${PORT}`);
 });

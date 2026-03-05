@@ -82,12 +82,10 @@ form.editing .edit-notice {
     display: inline-block;
 }
 
-/* Input hover: show blue outline like the edit button */
 input:hover {
     box-shadow: 0 0 0 2px rgba(52,152,219,0.12);
 }
 
-/* When in editing mode, highlight the input and change submit button color to blue */
 form.editing input {
     box-shadow: 0 0 0 3px rgba(52,152,219,0.18);
 }
@@ -96,7 +94,6 @@ form.editing button[type="submit"] {
     background: #3498db;
 }
 
-/* Simple nicer scrollbar for webkit */
 #userList::-webkit-scrollbar { width: 8px; }
 #userList::-webkit-scrollbar-thumb {
     background: rgba(255,255,255,0.12);
